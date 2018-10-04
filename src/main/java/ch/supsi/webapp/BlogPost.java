@@ -12,6 +12,7 @@ import java.util.ArrayList;
 @WebServlet(value="/blogpost")
 
 public class BlogPost extends HttpServlet {
+
     private String author;
     private String text;
     private String title;
