@@ -4,13 +4,32 @@ public class BlogPost {
     private String title;
     private String text;
     private String author;
+    private static Long idGiver = new Long(1);
+    private final long id;
 
-    public BlogPost(){}
+    public BlogPost(){
+        synchronized (idGiver) {
+            id = idGiver;
+            idGiver++;
+        }
+    }
 
     public BlogPost(String title, String text, String author) {
         this.title = title;
         this.text = text;
         this.author = author;
+
+        synchronized (idGiver) {
+            id = idGiver;
+            idGiver++;
+        }
+    }
+
+    public BlogPost(String title, String text, String author, long id) {
+        this.title = title;
+        this.text = text;
+        this.author = author;
+        this.id = id;
     }
 
     public String getTitle() {
@@ -37,8 +56,12 @@ public class BlogPost {
         this.author = author;
     }
 
+    public long getId(){
+        return id;
+    }
+
     @Override
     public String toString(){
-        return new String("Title: "+this.title+", Text: "+this.text+", Author: "+this.author);
+        return new String("Title: "+this.title+", Text: "+this.text+", Author: "+this.author + " id: "+this.id);
     }
 }
