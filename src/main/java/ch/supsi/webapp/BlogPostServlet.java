@@ -1,9 +1,6 @@
 package ch.supsi.webapp;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.fasterxml.jackson.databind.node.ObjectNode;
-//import com.sun.deploy.net.HttpRequest;
-//import com.sun.deploy.net.HttpResponse;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,22 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.function.UnaryOperator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 @WebServlet(value = "/blogpost/*", loadOnStartup = 1)
 public class BlogPostServlet extends HttpServlet {
 
     private static ObjectMapper mapper;
-    private static ArrayList<BlogPost> instances;
+    private static CopyOnWriteArrayList<BlogPost> instances;
 
 
     @Override
     public void init(){
         mapper = new ObjectMapper();
-        instances = new ArrayList<>();
+        instances = new CopyOnWriteArrayList<>();
     }
 
 
@@ -40,6 +36,7 @@ public class BlogPostServlet extends HttpServlet {
         if(request_info == null || request_info.equals("/")) {
             mapper.writeValue(resp.getWriter(), instances);
             resp.setStatus(200,"Ok");
+            resp.setContentType("application/json");
         } else {
             request_info = request_info.substring(1);
             Long id = Long.parseLong(request_info);
@@ -59,6 +56,7 @@ public class BlogPostServlet extends HttpServlet {
             } else {
                 mapper.writeValue(resp.getWriter(),toWrite);
                 resp.setStatus(200,"Blogpost found.");
+                resp.setContentType("application/json");
             }
         }
     }
@@ -77,6 +75,7 @@ public class BlogPostServlet extends HttpServlet {
             instances.add(created);
             mapper.writeValue(resp.getWriter(), created);
             resp.setStatus(201, "Blog Post added succesfully.");
+            resp.setContentType("application/json");
         } else {
             resp.setStatus(400,"Could not add the post.");
         }
@@ -107,55 +106,17 @@ public class BlogPostServlet extends HttpServlet {
                     bp.setTitle(new_one.getTitle());bp.setText(new_one.getText());bp.setAuthor(new_one.getAuthor());
                     mapper.writeValue(resp.getWriter(),bp);
                     resp.setStatus(200,"Post with id "+id_to_put+" replaced successfully.");
+                    resp.setContentType("application/json");
                     return;
                 }
             }
 
             resp.setStatus(404,"Post with id "+id_to_put+" not found. Impossible to replace");
             resp.getWriter().println("Post with id "+id_to_put+" not found. Impossible to replace");
-        } else if(req.getContentType().equals("application/x-www-form-urlencoded")){
-            if(req.getPathInfo() != null) {
-                id_to_put = Long.parseLong(req.getPathInfo().substring(1));
-            } else {
-                resp.setStatus(400,"Post id not specified. Impossible to put.");
-                return;
-            }
-
-            String tit = getTitle(req);
-            String tex = getText(req);
-            String aut = getAuthor(req);
-
-            boolean modified = false;
-            BlogPost bp_modified = null;
-
-            for(BlogPost bp : instances){
-                if(bp.getId() == id_to_put){
-                    modified = true;
-                    bp.setAuthor(aut);bp.setText(tex);bp.setTitle(tit);
-                    mapper.writeValue(resp.getWriter(),bp);
-                    resp.setStatus(200,"Post with id "+id_to_put+" replaced successfully.");
-                    return;
-                }
-            }
-
-            resp.setStatus(404,"Post with id "+id_to_put+" not found. Impossible to replace it.");
-
         } else {
             resp.getWriter().println("Could not replace the post correctly. Please send a JSON PUT request or a x-www-form-urlencoded PUT request.");
             resp.setStatus(400,"Bad Request");
         }
-    }
-
-    private String getAuthor(HttpServletRequest req) {
-        return req.getParameter("author");
-    }
-
-    private String getText(HttpServletRequest req) {
-        return req.getParameter("text");
-    }
-
-    private String getTitle(HttpServletRequest req) {
-        return req.getParameter("title");
     }
 
     @Override
@@ -207,35 +168,9 @@ public class BlogPostServlet extends HttpServlet {
 
                     mapper.writeValue(resp.getWriter(),bp);
                     patched = true;
+                    resp.setContentType("application/json");
                 }
             }
-        } else if(req.getContentType().equals("application/x-www-form-urlencoded")){
-
-            String tit = req.getParameter("title");
-            String tex = req.getParameter("text");
-            String aut = req.getParameter("author");
-
-            for(BlogPost bp : instances){
-                if(bp.getId() == id_to_patch){
-                    if(tit!=null){
-                        bp.setTitle(tit);
-                    }
-
-                    if(tex != null){
-                        bp.setText(tex);
-                    }
-
-                    if(aut != null){
-                        bp.setAuthor(aut);
-                    }
-                    patched = true;
-                    mapper.writeValue(resp.getWriter(),bp);
-                }
-            }
-        }
-
-        if(patched){
-            resp.setStatus(200,"Post with id "+id_to_patch+" patched succesfully.");
         } else {
             resp.setStatus(404,"Post with id "+id_to_patch+" not found. Impossible to fetch.");
         }
