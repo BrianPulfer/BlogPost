@@ -57,7 +57,7 @@ public class BlogPostController {
         for(BlogPost bp : blogPosts){
             if(bp.getId() == id){
                 blogPosts.remove(bp);
-                return new ResponseEntity<>(success, HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(success, HttpStatus.OK);
             }
         }
 
