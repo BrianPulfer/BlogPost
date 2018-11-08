@@ -1,27 +1,27 @@
 package ch.supsi.webapp.web;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity //Tabella sul DB.
 public class BlogPost {
 
-    private static int idgiver = 1;
-    private int id = -1;
+    @Id
+    @GeneratedValue
+    private int id;
 
     private String title;
+
+    @Column(columnDefinition = "TEXT")
     private String text;
+
     private String author;
 
-    public static void giveId(BlogPost bp){
-        if(bp.id == -1){
-            bp.id = idgiver;
-            idgiver++;
-        }
-    }
 
     public int getId(){
         return this.id;
-    }
-
-    private void setId(int id){
-        this.id = id;
     }
 
     public BlogPost(){ };
@@ -30,9 +30,6 @@ public class BlogPost {
         this.title = title;
         this.text = text;
         this.author = author;
-
-        id = idgiver;
-        idgiver++;
     }
 
     public String getTitle() {
