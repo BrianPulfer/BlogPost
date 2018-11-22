@@ -21,8 +21,6 @@ public class BlogPost {
     @JoinColumn(name = "fk_category")
     private Category category;
 
-    public BlogPost(){ };
-
     public BlogPost(String title, String text, User author, Category category) {
         this.title = title;
         this.text = text;
