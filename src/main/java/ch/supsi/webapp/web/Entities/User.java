@@ -1,5 +1,7 @@
 package ch.supsi.webapp.web.Entities;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,8 +20,11 @@ public class User {
     @JoinColumn(name = "fk_role")
     private Role role;
 
-    public User(String username) {
+    public User(String username, String name, String surname, Role role) {
         this.username = username;
+        this.name = name;
+        this.surname = surname;
+        this.role = role;
     }
 
     public int getId() {

@@ -4,12 +4,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
-public class Category {
+public final class Category {
     @Id
     @GeneratedValue
     int id;
 
-    private String name;
+    private final String name;
 
     public Category(String name){
         this.name = name;
@@ -25,9 +25,5 @@ public class Category {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
