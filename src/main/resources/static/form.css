@@ -1,0 +1,18 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: lightgrey;
+    font-family: fantasy;
+    font-size: 30px;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+
+input, select{
+    margin-bottom: 40px;
+    width : 200px;
+}

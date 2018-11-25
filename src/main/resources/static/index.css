@@ -1,0 +1,45 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
+a{
+    font-size: 20px;
+    margin: 10px;
+    margin-left: 50%;
+    font-family: fantasy;
+}
+
+img{
+    margin-left : 30%;
+}
+
+body{
+    background-color: lightgrey;
+    font-size: 20px;
+}
+
+article {
+    margin-top: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-down : 20px;
+
+    border-width: 10px;
+    border-color: purple;
+    border-style: solid;
+}
+
+h3 {
+    margin-left: 50%;
+    font-size: 26px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+time{
+    margin-left: 90%;
+}
+
+footer{
+    margin-top: 30px;
+    margin-left: 0px;
+}
