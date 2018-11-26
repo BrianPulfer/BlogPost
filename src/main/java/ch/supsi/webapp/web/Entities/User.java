@@ -12,13 +12,15 @@ public class User {
     int id;
 
     @Column(length = 30)
-    private final String username;
+    private String username;
     private String name;
     private String surname;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "fk_role")
     private Role role;
+
+    public User(){}
 
     public User(String username, String name, String surname, Role role) {
         this.username = username;

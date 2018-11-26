@@ -34,9 +34,23 @@ public class BlogPostService  {
     }
 
     public BlogPost addBlogPost(BlogPost bp){
-        Category c = categoryRepository.findById(bp.getCategory().getId()).get();
-        User u = userRepository.findById(bp.getAuthor().getId()).get();
-        Role r = roleRepository.findById(u.getRole().getId()).get();
+        Category c;
+        User u;
+        Role r;
+
+
+        if(!categoryRepository.findByName(bp.getCategory().getName()).isPresent())
+            categoryRepository.save(bp.getCategory());
+        c = categoryRepository.findByName(bp.getCategory().getName()).get();
+
+        if(!roleRepository.findByName(bp.getAuthor().getRole().getName()).isPresent())
+            roleRepository.save(bp.getAuthor().getRole());
+        r = roleRepository.findByName(bp.getAuthor().getRole().getName()).get();
+
+        if(!userRepository.findByUsername(bp.getAuthor().getUsername()).isPresent())
+                userRepository.save(bp.getAuthor());
+        u = userRepository.findByUsername(bp.getAuthor().getUsername()).get();
+
         bp.getAuthor().setRole(r);
         bp.setAuthor(u);
         bp.setCategory(c);

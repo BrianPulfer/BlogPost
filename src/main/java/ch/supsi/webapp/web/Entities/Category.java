@@ -9,7 +9,9 @@ public final class Category {
     @GeneratedValue
     int id;
 
-    private final String name;
+    private String name;
+
+    public Category(){}
 
     public Category(String name){
         this.name = name;

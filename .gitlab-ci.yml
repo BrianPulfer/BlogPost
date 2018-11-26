@@ -4,7 +4,7 @@ variables:
 
 maven-build:
   stage: build
-  script: "mvn package"
+  script: ~/build.sh
   artifacts:
     paths:
       - target/*.war
@@ -14,8 +14,7 @@ maven-build:
 app-deploy:
   stage: deploy
   script:
-  - cp target/*.war /tomcat-webapps/$WAR_NAME
-  - echo http://isin03.dti.supsi.ch:9090/$APP_NAME
+  - ~/deploy.sh $WAR_NAME $APP_NAME
   environment:
     name: staging
     url: http://isin03.dti.supsi.ch:9090/${CI_PROJECT_NAME}
