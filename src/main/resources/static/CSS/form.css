@@ -16,3 +16,8 @@ input, select{
     margin-bottom: 40px;
     width : 200px;
 }
+
+button{
+    margin-left: 50px;
+    margin-top: 60px;
+}

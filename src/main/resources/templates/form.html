@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Brian Pulfer">
+    <meta name="description" content="Pagina per la creazione dei BlogPost">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nuovo BlogPost</title>
+
+    <link rel="stylesheet" th:href="@{/CSS/form.css}">
+</head>
+<body>
+
+    <form th:action="@{/blog/new}" th:object="${blogPost}" method="post">
+        Title:<br>
+        <input type="text" name="bptitle" th:field="*{title}"><br>
+        
+        Author:<br>
+        <select name="bpauthor" th:field="*{author}">
+            <option th:each="u : ${users}" th:text="${u.name}" th:value="${u.id}">NOME DEL AUTORE</option>
+        </select><br>
+
+        Category:<br>
+        <select th:field="*{category}">
+                <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.id}">NOME DELLA CATEGORIA</option>
+        </select><br>
+
+        Text:<br>
+        <textarea rows="10" cols="120" th:field="*{text}"></textarea>
+
+        <p><input type="submit" value="Submit" /></p>
+      </form>
+
+</body>
+</html>

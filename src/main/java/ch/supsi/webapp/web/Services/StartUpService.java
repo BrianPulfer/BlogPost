@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.Date;
 
 @Service
 public class StartUpService {
@@ -42,6 +43,7 @@ public class StartUpService {
 
         userService.postUser(brian);
 
-        blogPostService.addBlogPost(new BlogPost("First BlogPost ever","First BlogPost made at the server start-up", brian, category));
+        BlogPost blogpost = new BlogPost("First BlogPost ever","First BlogPost made at the server start-up", brian, category,new Date());
+        blogPostService.addBlogPost(blogpost);
     }
 }

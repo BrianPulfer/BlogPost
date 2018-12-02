@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="Brian Pulfer">
+        <meta name="description" content="Pagina di benvenuto dei BlogPost di Brian">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Esercizio1</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/CSS/index.css}">
+
+    </head>
+    <body>
+        <header>
+            <img th:src="@{/fakebook.png}" alt="logo">
+        </header>
+        <nav>
+            <a href="form.html">Nuovo Post</a>
+            <a href="blogpost.html">Blog Post</a>
+        </nav>
+        <main>
+            <div class="articles">
+
+                <article th:each="bp : ${blogPosts}">
+                    <h3 th:text="${bp.title}">TITOLO</h3>
+                    <time><em th:text="${bp.date}">DATA</em></time>
+                    <p th:text="${bp.text}">TESTO</p>
+                </article><br>
+
+            </div>
+        </main>
+        <aside></aside>
+        <footer>Copyleft CC-by 2018 by Brian</footer>
+    </body>
+</html>

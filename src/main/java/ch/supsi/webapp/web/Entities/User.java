@@ -1,7 +1,5 @@
 package ch.supsi.webapp.web.Entities;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.persistence.*;
 
 @Entity

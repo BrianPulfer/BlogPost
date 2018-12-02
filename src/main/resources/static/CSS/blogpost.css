@@ -1,0 +1,25 @@
+*, *::before, *::after{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: lightgrey;
+}
+
+h3{
+    margin-left: 50%;
+    size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+time{
+    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-left: 100px;
+}
+
+p{
+    font-family: "Segoe UI";
+    margin-left: 100px;
+}

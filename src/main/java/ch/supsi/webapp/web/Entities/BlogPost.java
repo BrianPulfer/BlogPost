@@ -1,6 +1,7 @@
 package ch.supsi.webapp.web.Entities;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity //Tabella sul DB.
 public class BlogPost {
@@ -12,6 +13,8 @@ public class BlogPost {
 
     @Column(columnDefinition = "TEXT")
     private String text;
+
+    private Date date;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "fk_author")
@@ -28,6 +31,14 @@ public class BlogPost {
         this.text = text;
         this.author = author;
         this.category = category;
+    }
+
+    public BlogPost(String title, String text, User author, Category category, Date date) {
+        this.title = title;
+        this.text = text;
+        this.author = author;
+        this.category = category;
+        this.date = date;
     }
 
     public int getId() {
@@ -69,4 +80,8 @@ public class BlogPost {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public Date getDate(){ return date; }
+
+    public void setDate(Date date){ this.date = date;}
 }
