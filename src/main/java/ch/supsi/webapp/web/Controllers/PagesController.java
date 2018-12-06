@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -61,6 +62,7 @@ public class PagesController {
 
     @RequestMapping(value = "/blog/new", method = RequestMethod.POST)
     public String createBlogPost(Model model,@ModelAttribute BlogPost bp){
+        bp.setDate(new Date());
         blogPostService.addBlogPost(bp);
         return getAllBlogPosts(model);
     }
@@ -76,6 +78,7 @@ public class PagesController {
 
     @RequestMapping(value = "/blog/{id}/edit", method = RequestMethod.POST)
     public String editBlogPostPost(@PathVariable int id, @ModelAttribute BlogPost bp){
+        bp.setDate(new Date());
         blogPostService.putBlogPost(id, bp);
         return "redirect:/";
     }

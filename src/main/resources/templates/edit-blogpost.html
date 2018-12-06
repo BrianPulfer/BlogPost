@@ -6,31 +6,40 @@
     <meta name="description" content="Pagina per la creazione dei BlogPost">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Modifica BlogPost</title>
+    <title>Edit BlogPost</title>
 
-    <link rel="stylesheet" th:href="@{/CSS/form.css}">
+    <!-- <link rel="stylesheet" th:href="@{/CSS/form.css}"> -->
+    <link th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}" rel="stylesheet">
 </head>
-<body>
+<body class="my-3 bg-light">
+    <div class="container">
 
-<form th:object="${blogPost}" th:action="@{/blog/{id}/edit(id = ${blogPost.id})}"  method="post">
-    Title:<br>
-    <input type="text" name="bptitle" th:field="*{title}"><br>
+        <div th:insert="~{master-page :: BP-header}"></div>
 
-    Author:<br>
-    <select name="bpauthor" th:field="*{author}" th:value="*{author}">
-        <option th:each="u : ${users}" th:text="${u.name}" th:value="${u.id}">NOME DEL AUTORE</option>
-    </select><br>
+        <div th:insert="~{master-page :: BP-navbar}"></div>
 
-    Category:<br>
-    <select th:field="*{category}" th:value="*{category}">
-        <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.id}">NOME DELLA CATEGORIA</option>
-    </select><br>
+        <form th:object="${blogPost}" th:action="@{/blog/{id}/edit(id = ${blogPost.id})}"  method="post">
+            <p class="text ml-10% font-weight-bold mb-0">Title:</p>
+            <input class="form-control mt-0 mb-3" placeholder="Title" name="bptitle" th:field="*{title}"><br>
 
-    Text:<br>
-    <textarea rows="10" cols="120" th:field="*{text}" th:value="*{text}"></textarea>
+            <p class="text ml-10% mb-0 font-weight-bold">Author:</p>
+            <select class="mt-0 mb-3 custom-select" name="bpauthor" th:field="*{author}" th:value="*{author}">
+                <option th:each="u : ${users}" th:text="${u.name}" th:value="${u.id}">NOME DEL AUTORE</option>
+            </select><br>
 
-    <p><input type="submit" value="Submit"/></p>
-</form>
+            <p class="text ml-10% mb-0 font-weight-bold">Category:</p>
+            <select class="mt-0 mb-3 custom-select" th:field="*{category}" th:value="*{category}">
+                <option th:each="category : ${categories}" th:text="${category.name}" th:value="${category.id}">NOME DELLA CATEGORIA</option>
+            </select><br>
+
+            <p class="text ml-10% mb-0 font-weight-bold">Text:</p>
+            <textarea class="form-control mt-0 mb-3" placeholder="Text..." rows="10" th:field="*{text}" th:value="*{text}"></textarea>
+
+            <input type = "submit" class="btn btn-success" value="Modifica"/>
+        </form>
+
+        <div th:insert="~{master-page :: BP-footer}"></div>
+    </div>
 
 </body>
 </html>

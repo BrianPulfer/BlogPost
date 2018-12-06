@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Master Page</title>
+</head>
+<body class="my-3 bg-light">
+    <div class="container">
+
+        <!-- HEADER -->
+        <header class="row" th:fragment = "BP-header">
+            <div class="col text-center my-3">
+                <img width="30%" th:src="@{/logo.png}" alt="logo" th:href="@{/}">
+            </div>
+        </header>
+
+
+        <!-- NAV BAR -->
+        <nav class="text-center navbar navbar-expand-lg navbar-light bg-light mb-5" th:fragment="BP-navbar">
+            <a class="nav-link font-weight-bold" th:href="@{/}">Home</a>
+            <a class="nav-link font-weight-bold" th:href="@{/blog/new}">Nuovo Post</a>
+        </nav>
+
+
+        <!-- FOOTER -->
+        <footer class="modal-footer" th:fragment="BP-footer">Copyleft CC-by 2018 by Brian</footer>
+
+    </div>
+</body>
+</html>

@@ -9,8 +9,13 @@ a{
     font-family: fantasy;
 }
 
+a.Edit-Link{
+    font-size: 10px;
+    color: gray;
+}
+
 img{
-    margin-left : 30%;
+    margin-left : 20%;
 }
 
 body{
@@ -36,7 +41,7 @@ h3 {
 }
 
 time{
-    margin-left: 90%;
+    margin-left: 60%;
 }
 
 footer{
