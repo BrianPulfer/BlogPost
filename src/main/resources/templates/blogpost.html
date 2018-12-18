@@ -23,8 +23,8 @@
             <p class = "font-italic row" th:text="${blogpost.category.name}">CATEGORIA</p>
             <time class = "row"><em th:text="${blogpost.date}">DATA</em></time>
             <h5 class="row mt-5 mb-3 text"  th:text="${blogpost.text}">TESTO</h5>
-            <a class="btn btn-warning" type="button" th:href="@{'/blog/'+ ${blogpost.id} +'/edit'}">Modifica</a>
-            <a class="btn btn-danger" type="button" th:href="@{'/blog/' + ${blogpost.id} +'/delete'}">Elimina</a>
+            <a class="btn btn-warning" type="button" th:href="@{'/blog/'+ ${blogpost.id} +'/edit'}" sec:authorize="isAuthenticated()">Edit</a>
+            <a class="btn btn-danger" type="button" th:href="@{'/blog/' + ${blogpost.id} +'/delete'}" sec:authorize="hasRole('ROLE_ADMIN')" >Delete</a>
         </article>
 
         <div th:insert="~{master-page :: BP-footer}"></div>

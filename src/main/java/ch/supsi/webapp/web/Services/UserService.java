@@ -30,6 +30,10 @@ public class UserService {
         return Optional.empty();
     }
 
+    public User findUserByUsername(String username){
+        return userRepository.findByUsername(username).get();
+    }
+
     public Optional<User> getUser(int id) {
         return userRepository.findById(id);
     }

@@ -27,10 +27,11 @@ public class StartUpService {
 
     @PostConstruct
     public void initDB(){
-        Role role = new Role("Admin");
-        Role role2 = new Role("RockStar");
+        Role role = new Role("ROLE_ADMIN");
+        Role role2 = new Role("ROLE_ROCKSTAR");
         Category category = new Category("Sport");
-        User brian =  new User("BrianP","Brian","Pulfer",role);
+        User admin = new User("admin",null,null,role,"admin");
+        User brian =  new User("BrianP","Brian","Pulfer",role,"1234");
         User tommy = new User("RockyBalboa","Tommaso","Agnola", role2);
 
         categoryService.postCategory(category);
@@ -40,12 +41,14 @@ public class StartUpService {
 
         roleService.postRole(role);
         roleService.postRole(role2);
-        roleService.postRole(new Role("Elder"));
-        roleService.postRole(new Role("Standard"));
-        roleService.postRole(new Role("Rookie"));
+        roleService.postRole(new Role("ROLE_ELDER"));
+        roleService.postRole(new Role("ROLE_STANDARD"));
+        roleService.postRole(new Role("ROLE_ROOKIE"));
+        roleService.postRole(new Role("ROLE_USER"));
 
-        userService.postUser(tommy);
+        userService.postUser(admin);
         userService.postUser(brian);
+        userService.postUser(tommy);
 
         BlogPost blogpost = new BlogPost("First BlogPost ever","First BlogPost made at the server start-up", brian, category,new Date());
         blogPostService.addBlogPost(blogpost);

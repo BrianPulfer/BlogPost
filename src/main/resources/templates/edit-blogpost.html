@@ -24,7 +24,7 @@
 
             <p class="text ml-10% mb-0 font-weight-bold">Author:</p>
             <select class="mt-0 mb-3 custom-select" name="bpauthor" th:field="*{author}" th:value="*{author}">
-                <option th:each="u : ${users}" th:text="${u.name}" th:value="${u.id}">NOME DEL AUTORE</option>
+                <option th:text="${blogPost.author.username}" th:value="${blogPost.author.id}">NOME DEL AUTORE</option>
             </select><br>
 
             <p class="text ml-10% mb-0 font-weight-bold">Category:</p>
@@ -35,7 +35,7 @@
             <p class="text ml-10% mb-0 font-weight-bold">Text:</p>
             <textarea class="form-control mt-0 mb-3" placeholder="Text..." rows="10" th:field="*{text}" th:value="*{text}"></textarea>
 
-            <input type = "submit" class="btn btn-success" value="Modifica"/>
+            <input type = "submit" class="btn btn-success" value="Edit"/>
         </form>
 
         <div th:insert="~{master-page :: BP-footer}"></div>

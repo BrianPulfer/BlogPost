@@ -6,12 +6,16 @@ import ch.supsi.webapp.web.Entities.Category;
 import ch.supsi.webapp.web.Entities.User;
 import ch.supsi.webapp.web.Services.BlogPostService;
 import ch.supsi.webapp.web.Services.CategoryService;
+import ch.supsi.webapp.web.Services.RoleService;
 import ch.supsi.webapp.web.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +32,33 @@ public class PagesController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private RoleService roleService;
 
+
+    @RequestMapping(value="/register", method = RequestMethod.GET)
+    public String getRegister(Model model){
+        User newUser = new User();
+
+        model.addAttribute("newUser", newUser);
+        return "register";
+    }
+
+    @RequestMapping(value="/register", method = RequestMethod.POST)
+    public String register(@ModelAttribute User user){
+        user.setRole(roleService.getRoleByName("ROLE_USER"));
+        if(user.getUsername() != null && !user.getUsername().isEmpty()) {
+            userService.postUser(user);
+            return "redirect:/login";
+        }
+
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String getLogin(){
+        return "login";
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getAllBlogPosts(Model model){
@@ -49,10 +79,14 @@ public class PagesController {
     }
 
     @RequestMapping(value = "/blog/new", method = RequestMethod.GET)
-    public String form(Model model){
+    public String form(Model model, HttpSession session){
+        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         List<Category> categories = categoryService.getAllCategory();
         List<User> users = userService.getAllUser();
+
         BlogPost blogPost = new BlogPost();
+        blogPost.setAuthor(userService.findUserByUsername(user.getUsername()));
 
         model.addAttribute("blogPost", blogPost);
         model.addAttribute("categories",categories);

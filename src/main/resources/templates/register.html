@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Register</title>
+    <link th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="my-3 bg-light">
+
+    <div class="container">
+        <div th:insert="~{master-page :: BP-header}"></div>
+        <div th:insert="~{master-page :: BP-navbar}"></div>
+
+        <div class="row">
+            <form class="col-12 offset-sm-3 col-sm-6 " th:object="${newUser}" th:action="@{/register}" method="post">
+                <h2 class="text-center">Register</h2>
+                <div class="form-group">
+                    <input th:field = "*{name}" type="text" class="form-control" placeholder="Name" required="required">
+                </div>
+                <div class="form-group">
+                    <input th:field = "*{surname}" type="text" class="form-control" placeholder="Surname" required="required">
+                </div>
+                <div class="form-group">
+                    <input th:field = "*{username}" type="text" class="form-control" placeholder="Username" required="required">
+                </div>
+                <div class="form-group">
+                    <input th:field = "*{password}"type="password" class="form-control" placeholder="Password" required="required">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </div>
+            </form>
+        </div>
+
+
+
+        <div th:insert="~{master-page :: BP-footer}"></div>
+    </div>
+
+</body>
+</html>
