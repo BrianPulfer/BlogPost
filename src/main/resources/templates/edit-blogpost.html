@@ -23,9 +23,13 @@
             <input class="form-control mt-0 mb-3" placeholder="Title" name="bptitle" th:field="*{title}"><br>
 
             <p class="text ml-10% mb-0 font-weight-bold">Author:</p>
+            <!--
             <select class="mt-0 mb-3 custom-select" name="bpauthor" th:field="*{author}" th:value="*{author}">
                 <option th:text="${blogPost.author.username}" th:value="${blogPost.author.id}">NOME DEL AUTORE</option>
             </select><br>
+            -->
+
+            <p class="ml-10% mb-0" th:text="${postAuthor.getUsername()}">NOME DEL AUTORE</p>
 
             <p class="text ml-10% mb-0 font-weight-bold">Category:</p>
             <select class="mt-0 mb-3 custom-select" th:field="*{category}" th:value="*{category}">

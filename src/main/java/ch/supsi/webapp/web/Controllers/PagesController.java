@@ -83,20 +83,21 @@ public class PagesController {
         org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         List<Category> categories = categoryService.getAllCategory();
-        List<User> users = userService.getAllUser();
 
         BlogPost blogPost = new BlogPost();
-        blogPost.setAuthor(userService.findUserByUsername(user.getUsername()));
+        User author = userService.findUserByUsername(user.getUsername());
+        blogPost.setAuthor(author);
 
         model.addAttribute("blogPost", blogPost);
         model.addAttribute("categories",categories);
-        model.addAttribute("users",users);
+        model.addAttribute("postAuthor",author);
         return "form";
     }
 
     @RequestMapping(value = "/blog/new", method = RequestMethod.POST)
     public String createBlogPost(Model model,@ModelAttribute BlogPost bp){
         bp.setDate(new Date());
+        bp.setAuthor(getCurrentUser()); //Modificare per lasciare autore originale
         blogPostService.addBlogPost(bp);
         return getAllBlogPosts(model);
     }
@@ -106,13 +107,14 @@ public class PagesController {
     public String editBlogPostGet(Model model, @PathVariable int id){
         model.addAttribute("blogPost",blogPostService.getBlogPost(id).get());
         model.addAttribute("categories",categoryService.getAllCategory());
-        model.addAttribute("users",userService.getAllUser());
+        model.addAttribute("postAuthor",blogPostService.getBlogPost(id).get().getAuthor());
         return "edit-blogpost";
     }
 
     @RequestMapping(value = "/blog/{id}/edit", method = RequestMethod.POST)
     public String editBlogPostPost(@PathVariable int id, @ModelAttribute BlogPost bp){
         bp.setDate(new Date());
+        bp.setAuthor(getCurrentUser()); //Modificare per lasciare autore originale
         blogPostService.putBlogPost(id, bp);
         return "redirect:/";
     }
@@ -121,5 +123,10 @@ public class PagesController {
     public String deleteBlogPost(@PathVariable int id){
         blogPostService.deleteBlogPost(id);
         return "redirect:/";
+    }
+
+    private User getCurrentUser(){
+        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userService.findUserByUsername(user.getUsername());
     }
 }
