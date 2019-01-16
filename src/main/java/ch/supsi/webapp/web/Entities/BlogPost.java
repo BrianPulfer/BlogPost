@@ -1,6 +1,7 @@
 package ch.supsi.webapp.web.Entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Entity //Tabella sul DB.
@@ -24,7 +25,7 @@ public class BlogPost {
     @JoinColumn(name = "fk_category")
     private Category category;
 
-    public BlogPost(){}
+    public BlogPost(){ }
 
     public BlogPost(String title, String text, User author, Category category) {
         this.title = title;

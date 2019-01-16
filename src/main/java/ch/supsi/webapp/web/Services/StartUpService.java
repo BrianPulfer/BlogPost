@@ -1,9 +1,6 @@
 package ch.supsi.webapp.web.Services;
 
-import ch.supsi.webapp.web.Entities.BlogPost;
-import ch.supsi.webapp.web.Entities.Category;
-import ch.supsi.webapp.web.Entities.Role;
-import ch.supsi.webapp.web.Entities.User;
+import ch.supsi.webapp.web.Entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +21,9 @@ public class StartUpService {
 
     @Autowired
     RoleService roleService;
+
+    @Autowired
+    CommentService commentService;
 
     @PostConstruct
     public void initDB(){
@@ -52,5 +52,12 @@ public class StartUpService {
 
         BlogPost blogpost = new BlogPost("First BlogPost ever","First BlogPost made at the server start-up", brian, category,new Date());
         blogPostService.addBlogPost(blogpost);
+
+        Comment comment = new Comment();
+        comment.setAuthor(brian);
+        comment.setText("This is the very first comment.");
+        comment.setPost(blogpost);
+
+        commentService.addComment(comment);
     }
 }

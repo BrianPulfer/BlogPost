@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Master Page</title>
@@ -21,6 +21,7 @@
             <a class=" nav-link font-weight-bold" th:href="@{/blog/new}" sec:authorize="isAuthenticated()">New Post</a>
             <a class=" nav-link font-weight-bold" th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>
             <a class=" nav-link font-weight-bold" th:href="@{/register}" sec:authorize="!isAuthenticated()">Register</a>
+            <a class=" nav-link font-weight-bold" th:href="@{/blog/profile}" sec:authorize="isAuthenticated()">Profile</a>
             <a class=" nav-link font-weight-bold" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
             <p class=" nav-link offset-sm-6" sec:authorize="isAuthenticated()">You're logged in as <b sec:authentication="name">NOME UTENTE</b> </p>
         </nav>

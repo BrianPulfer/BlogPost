@@ -27,6 +27,17 @@
             <a class="btn btn-danger" type="button" th:href="@{'/blog/' + ${blogpost.id} +'/delete'}" sec:authorize="hasRole('ROLE_ADMIN')" >Delete</a>
         </article>
 
+        <div class="mt-4">
+            <article class="border border-secondary mb-1" th:each="comment : ${comments}">
+                <h4 th:text="${comment.getAuthor().getUsername()}">AUTORE COMMENTO</h4>
+                <p th:text="${comment.getText()}">COMMENTO</p>
+            </article>
+        </div>
+
+        <div class="row">
+            <a type="button" th:href="@{'/blog/'+${blogpost.id}+'/comment'}" sec:authorize="isAuthenticated()" class="col-md-2 offset-md-5 btn btn-primary">Comment</a>
+        </div>
+
         <div th:insert="~{master-page :: BP-footer}"></div>
     </div>
 </body>

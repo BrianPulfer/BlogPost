@@ -3,11 +3,9 @@ package ch.supsi.webapp.web.Controllers;
 
 import ch.supsi.webapp.web.Entities.BlogPost;
 import ch.supsi.webapp.web.Entities.Category;
+import ch.supsi.webapp.web.Entities.Comment;
 import ch.supsi.webapp.web.Entities.User;
-import ch.supsi.webapp.web.Services.BlogPostService;
-import ch.supsi.webapp.web.Services.CategoryService;
-import ch.supsi.webapp.web.Services.RoleService;
-import ch.supsi.webapp.web.Services.UserService;
+import ch.supsi.webapp.web.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
@@ -16,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -34,6 +34,9 @@ public class PagesController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private CommentService commentService;
 
 
     @RequestMapping(value="/register", method = RequestMethod.GET)
@@ -71,7 +74,14 @@ public class PagesController {
     public String getBlogPost(@PathVariable int id, Model model){
         if(blogPostService.getBlogPost(id) != null) {
             BlogPost blogPost = blogPostService.getBlogPost(id).get();
+            ArrayList<Comment> comments = null;
+
+            if(commentService.getComments(blogPost).isPresent()) {
+                comments = commentService.getComments(blogPost).get();
+            }
+
             model.addAttribute("blogpost",blogPost);
+            model.addAttribute("comments",comments);
             return "blogpost";
         }
 
@@ -121,8 +131,36 @@ public class PagesController {
 
     @RequestMapping(value="/blog/{id}/delete", method = RequestMethod.GET)
     public String deleteBlogPost(@PathVariable int id){
+        commentService.deleteComments(blogPostService.getBlogPost(id).get());
         blogPostService.deleteBlogPost(id);
         return "redirect:/";
+    }
+
+    @RequestMapping(value="/blog/profile", method=RequestMethod.GET)
+    public String profile(Model model, HttpSession session){
+        User user = getCurrentUser();
+
+        List<BlogPost> posts =  blogPostService.getBlogPosts().stream().filter(post -> post.getAuthor() == user).collect(Collectors.toList());
+        model.addAttribute("posts", posts);
+        return "profile";
+    }
+
+    @RequestMapping(value="/blog/{id}/comment", method = RequestMethod.GET)
+    public String comment(Model model, @PathVariable int id){
+        Comment comment = new Comment();
+
+        model.addAttribute("post",blogPostService.getBlogPost(id).get());
+        model.addAttribute("comment",comment);
+        return "comment";
+    }
+
+    @RequestMapping(value="/blog/{id}/comment", method=RequestMethod.POST)
+    public String addComment(@PathVariable int id, @ModelAttribute Comment comment){
+        comment.setAuthor(getCurrentUser());
+        comment.setPost(blogPostService.getBlogPost(id).get());
+
+        commentService.addComment(comment);
+        return "redirect:/blog/"+id;
     }
 
     private User getCurrentUser(){

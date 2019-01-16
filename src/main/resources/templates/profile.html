@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Your Profile</title>
+
+    <link th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <div th:insert="~{master-page :: BP-header}"></div>
+    <div th:insert="~{master-page :: BP-navbar}"></div>
+
+    <div th:each="post : ${posts}">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 ">
+                <article class="card">
+                    <div class="card-body">
+                        <p class="card-header" th:text="${post.author.username}">AUTORE</p>
+                        <a style="font-family: fantasy; font-size: 2rem;" class="card-title mb-5" th:href="@{'/blog/' + ${post.id}}" th:text="${post.title}">TITOLO</a>
+                        <p class="card-text" th:text="${post.text}">TESTO</p>
+                        <time class="card-footer mt-3"><em th:text="${post.date}">DATA</em></time>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div th:insert="~{master-page :: BP-footer}"></div>
+</div>
+</body>
+</html>
