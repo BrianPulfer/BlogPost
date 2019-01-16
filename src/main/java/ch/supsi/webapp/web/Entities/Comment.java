@@ -1,6 +1,7 @@
 package ch.supsi.webapp.web.Entities;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Comment {
@@ -9,6 +10,7 @@ public class Comment {
     int id;
 
     private String text;
+    private Date date;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "fk_author")
@@ -22,10 +24,11 @@ public class Comment {
 
     public Comment(String text){this.text = text;}
 
-    public Comment(String text, User author, BlogPost blogPost){
+    public Comment(String text, User author, BlogPost blogPost, Date date){
         this.text = text;
         this.author = author;
         this.post = blogPost;
+        this.date = date;
     }
 
     public int getID(){
@@ -54,5 +57,13 @@ public class Comment {
 
     public void setPost(BlogPost blogPost){
         this.post = blogPost;
+    }
+
+    public void setDate(Date date){
+        this.date = date;
+    }
+
+    public Date getDate(){
+        return this.date;
     }
 }

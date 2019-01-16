@@ -56,6 +56,7 @@ public class StartUpService {
         Comment comment = new Comment();
         comment.setAuthor(brian);
         comment.setText("This is the very first comment.");
+        comment.setDate(new Date());
         comment.setPost(blogpost);
 
         commentService.addComment(comment);

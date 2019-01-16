@@ -158,6 +158,7 @@ public class PagesController {
     public String addComment(@PathVariable int id, @ModelAttribute Comment comment){
         comment.setAuthor(getCurrentUser());
         comment.setPost(blogPostService.getBlogPost(id).get());
+        comment.setDate(new Date());
 
         commentService.addComment(comment);
         return "redirect:/blog/"+id;

@@ -29,7 +29,10 @@
 
         <div class="mt-4">
             <article class="border border-secondary mb-1" th:each="comment : ${comments}">
-                <h4 th:text="${comment.getAuthor().getUsername()}">AUTORE COMMENTO</h4>
+                <div class="row">
+                    <h4 class="col" th:text="${comment.getAuthor().getUsername()}">AUTORE COMMENTO</h4>
+                    <h6 class="col"  th:text="${comment.getDate().toString()}">DATA COMMENTO</h6>
+                </div>
                 <p th:text="${comment.getText()}">COMMENTO</p>
             </article>
         </div>
