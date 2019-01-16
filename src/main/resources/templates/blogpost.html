@@ -35,7 +35,7 @@
                 </div>
                 <p th:text="${comment.getText()}">COMMENTO</p>
                 <div>
-                    <a type="button" th:href="@{'/comment/'+${comment.getID()}}" >RISPONDI AL COMMENTO</a>
+                    <a type="button" sec:authorize="isAuthenticated()" th:href="@{'/comment/'+${comment.getID()}}" >RISPONDI AL COMMENTO</a>
                 </div>
 
 
