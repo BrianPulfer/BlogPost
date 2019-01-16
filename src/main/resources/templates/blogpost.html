@@ -34,6 +34,9 @@
                     <h6 class="col"  th:text="${comment.getDate().toString()}">DATA COMMENTO</h6>
                 </div>
                 <p th:text="${comment.getText()}">COMMENTO</p>
+                <div>
+                    <a type="button" th:href="@{'/comment/'+${comment.getID()}}" >RISPONDI AL COMMENTO</a>
+                </div>
             </article>
         </div>
 
