@@ -18,9 +18,9 @@
 
 
         <article>
-            <h2 class="title text-center" th:text="${blogpost.title}">TITOLO</h2>
-            <h5 class = "row" th:text="${blogpost.author.username}">USERNAME</h5>
-            <p class = "font-italic row" th:text="${blogpost.category.name}">CATEGORIA</p>
+            <h2 class="title text-center" th:text="${blogpost.getTitle()}">TITOLO</h2>
+            <h5 class = "row" th:text="${blogpost.getAuthor().getUsername()}">USERNAME</h5>
+            <p class = "font-italic row" th:text="${blogpost.getCategory().getName()}">CATEGORIA</p>
             <time class = "row"><em th:text="${blogpost.date}">DATA</em></time>
             <h5 class="row mt-5 mb-3 text"  th:text="${blogpost.text}">TESTO</h5>
             <a class="btn btn-warning" type="button" th:href="@{'/blog/'+ ${blogpost.id} +'/edit'}" sec:authorize="isAuthenticated()">Edit</a>

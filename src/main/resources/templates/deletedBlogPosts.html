@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Brian Pulfer">
+    <meta name="description" content="Pagina di benvenuto dei BlogPost di Brian">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Jazmin - Deleted posts</title>
+    <!-- <link rel="stylesheet" type="text/css" th:href="@{/CSS/index.css}"> -->
+    <link th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="bg-dark">
+<div class="container">
+    <div th:insert="~{master-page :: BP-header}"></div>
+
+    <div th:insert="~{master-page :: BP-navbar}"></div>
+
+    <main>
+        <article th:each="bp : ${blogPosts}" class="card mb-4 row">
+            <div class="col card-body">
+                <p class="card-header" th:text="${bp.author.username}">AUTORE</p>
+                <a style="font-family: fantasy; font-size: 2rem;" class="card-title mb-5" th:href="@{'/blog/deleted/' + ${bp.id}}" th:text="${bp.title}">TITOLO</a>
+                <p class="card-text" th:text="${bp.text}">TESTO</p>
+                <time class="card-footer mt-3"><em th:text="${bp.date}">DATA</em></time>
+            </div>
+        </article>
+    </main>
+
+    <div th:insert="~{master-page :: BP-footer}"></div>
+</div>
+</body>
+</html>

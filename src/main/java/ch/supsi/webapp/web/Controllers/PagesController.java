@@ -39,6 +39,9 @@ public class PagesController {
     @Autowired
     private CommentToCommentService commentToCommentService;
 
+    @Autowired
+    private DeletedBlogPostService deletedBlogPostService;
+
 
     @RequestMapping(value="/register", method = RequestMethod.GET)
     public String getRegister(Model model){
@@ -132,18 +135,13 @@ public class PagesController {
 
     @RequestMapping(value="/blog/{id}/delete", method = RequestMethod.GET)
     public String deleteBlogPost(@PathVariable int id){
+        DeletedBlogPost deletedBlogPost = new DeletedBlogPost(blogPostService.getBlogPost(id).get());
+
+        deletedBlogPostService.add(deletedBlogPost);
+
         commentService.deleteComments(blogPostService.getBlogPost(id).get());
         blogPostService.deleteBlogPost(id);
         return "redirect:/";
-    }
-
-    @RequestMapping(value="/blog/profile", method=RequestMethod.GET)
-    public String profile(Model model, HttpSession session){
-        User user = getCurrentUser();
-
-        List<BlogPost> posts =  blogPostService.getBlogPosts().stream().filter(post -> post.getAuthor() == user).collect(Collectors.toList());
-        model.addAttribute("posts", posts);
-        return "profile";
     }
 
     @RequestMapping(value="/blog/{id}/comment", method = RequestMethod.GET)
@@ -191,6 +189,23 @@ public class PagesController {
 
 
         return "redirect:/blog/"+ctc.getCommented().getPost().getId();
+    }
+
+    @RequestMapping(value="/blog/deleted", method = RequestMethod.GET)
+    public String deletedComments(Model model) {
+
+        model.addAttribute("blogPosts", deletedBlogPostService.getAll());
+        model.addAttribute("comments",null);
+        return "deletedBlogPosts";
+    }
+
+    @RequestMapping(value="/blog/deleted/{id}", method = RequestMethod.GET)
+    public String deletedDetail(Model model, @PathVariable int id) {
+        if(deletedBlogPostService.getById(id) != null) {
+            model.addAttribute("blogpost", deletedBlogPostService.getById(id));
+            return "deletedBlogPost";
+        }
+        return "redirect:/";
     }
 
     private User getCurrentUser(){
