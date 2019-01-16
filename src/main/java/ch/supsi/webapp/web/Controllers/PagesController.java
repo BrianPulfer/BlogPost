@@ -1,10 +1,8 @@
 package ch.supsi.webapp.web.Controllers;
 
 
-import ch.supsi.webapp.web.Entities.BlogPost;
-import ch.supsi.webapp.web.Entities.Category;
-import ch.supsi.webapp.web.Entities.Comment;
-import ch.supsi.webapp.web.Entities.User;
+import ch.supsi.webapp.web.Entities.*;
+import ch.supsi.webapp.web.Repositories.CommentToCommentRepository;
 import ch.supsi.webapp.web.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,6 +35,9 @@ public class PagesController {
 
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private CommentToCommentService commentToCommentService;
 
 
     @RequestMapping(value="/register", method = RequestMethod.GET)
@@ -162,6 +163,34 @@ public class PagesController {
 
         commentService.addComment(comment);
         return "redirect:/blog/"+id;
+    }
+
+    @RequestMapping(value="/comment/{id}", method = RequestMethod.GET)
+    public String commentComment(@PathVariable int id, Model model){
+        if(commentService.getComment(id) != null) {
+            Comment comment = commentService.getComment(id).get();
+            CommentToComment ctc = new CommentToComment();
+
+            ctc.setCommented(comment);
+
+            model.addAttribute("comment", comment);
+            model.addAttribute("newComment", ctc);
+
+            return "commentOnComment";
+        }
+
+        return "redirect:/";
+    }
+
+    @RequestMapping(value="/comment/{id}", method = RequestMethod.POST)
+    public String commentComment(@ModelAttribute CommentToComment ctc, @PathVariable int id) {
+        ctc.setAuthor(getCurrentUser());
+        ctc.setDate(new Date());
+        ctc.setCommented(commentService.getComment(id).get());
+        commentToCommentService.addComment(ctc);
+
+
+        return "redirect:/blog/"+ctc.getCommented().getPost().getId();
     }
 
     private User getCurrentUser(){

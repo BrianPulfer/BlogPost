@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Comment</title>
+
+    <link th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="my-3 bg-light">
+<div class="container">
+    <div th:insert="~{master-page :: BP-header}"></div>
+    <div th:insert="~{master-page :: BP-navbar}"></div>
+
+    <div th:text="'Commenting on comment:' + ${comment.getText()}"></div>
+
+    <form th:object="${newComment}" th:action="@{'/comment/' + ${comment.getID()}}" method="post">
+        <div class="row my-3"><textarea class="col-md-12  ml-md-2 mb-3" required="required" th:field="*{text}"></textarea></div>
+        <div class="row my-3 justify-content-sm-center"><input type="submit" class="btn btn-success col-sm-1" value="comment"/></div>
+    </form>
+
+    <div th:insert="~{master-page :: BP-footer}"></div>
+</div>
+</body>
+</html>

@@ -40,4 +40,11 @@ public class CommentService {
         }
     }
 
+    public Optional<Comment> getComment(int id){
+        if(commentRepository.findById(id).isPresent())
+            return commentRepository.findById(id);
+
+        return null;
+    }
+
 }
