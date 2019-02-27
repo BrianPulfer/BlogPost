@@ -15,22 +15,22 @@
         <div th:insert="~{master-page :: BP-navbar}"></div>
 
         <div class="row">
-            <form class="col-12 offset-sm-3 col-sm-6 " th:object="${newUser}" th:action="@{/register}" method="post">
+            <form id="form" class="col-12 offset-sm-3 col-sm-6 " th:object="${newUser}" th:action="@{/register}" method="post">
                 <h2 class="text-center">Register</h2>
                 <div class="form-group">
-                    <input th:field = "*{name}" type="text" class="form-control" placeholder="Name" required="required">
+                    <input id="name" th:field = "*{name}" type="text" class="form-control" placeholder="Name" required="required">
                 </div>
                 <div class="form-group">
-                    <input th:field = "*{surname}" type="text" class="form-control" placeholder="Surname" required="required">
+                    <input id="surname" th:field = "*{surname}" type="text" class="form-control" placeholder="Surname" required="required">
                 </div>
                 <div class="form-group">
-                    <input th:field = "*{username}" type="text" class="form-control" placeholder="Username" required="required">
+                    <input id="username" th:field = "*{username}" type="text" class="form-control" placeholder="Username" required="required">
                 </div>
                 <div class="form-group">
-                    <input th:field = "*{password}"type="password" class="form-control" placeholder="Password" required="required">
+                    <input id="password1" th:field = "*{password}"type="password" class="form-control" placeholder="Password" required="required">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    <input id="password2" type="password" class="form-control" placeholder="Confirm Password" required="required">
                 </div>
             </form>
         </div>
@@ -40,5 +40,6 @@
         <div th:insert="~{master-page :: BP-footer}"></div>
     </div>
 
+    <script th:src="@{/js/registrationValidation.js}" type="application/javascript"></script>
 </body>
 </html>
