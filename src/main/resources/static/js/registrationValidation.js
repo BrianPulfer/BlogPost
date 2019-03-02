@@ -12,8 +12,6 @@ let button_created = false;
  */
 
 function createButton(){
-    console.log("Creating BUTTON");
-
     let div = document.createElement("DIV");
     div.class = "form-group"
 
@@ -23,7 +21,7 @@ function createButton(){
     button.className = "btn btn-primary btn-block";
     button.innerHTML = "Register";
 
-    div.appendChild(button);
+    div.appendChild(button);;
     document.getElementById("form").appendChild(div);
 }
 
@@ -86,14 +84,8 @@ function checkIfOk(){
     }
 }
 
-name.addEventListener("keydown", checkIfOk);
-surname.addEventListener("keydown", checkIfOk);
-username.addEventListener("keydown",checkIfOk);
-password1.addEventListener("keydown", checkIfOk);
-password2.addEventListener("keydown", checkIfOk);
-
-name.addEventListener("change", checkIfOk);
-surname.addEventListener("change", checkIfOk);
-username.addEventListener("change",checkIfOk);
-password1.addEventListener("change", checkIfOk);
-password2.addEventListener("change", checkIfOk);
+name.addEventListener("input", checkIfOk);
+surname.addEventListener("input", checkIfOk);
+username.addEventListener("input",checkIfOk);
+password1.addEventListener("input", checkIfOk);
+password2.addEventListener("input", checkIfOk);
