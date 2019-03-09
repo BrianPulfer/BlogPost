@@ -17,13 +17,13 @@
 
         <!-- NAV BAR -->
         <nav class="text-center navbar navbar-expand-lg navbar-light bg-light mb-5" th:fragment="BP-navbar">
-            <a class=" nav-link font-weight-bold" th:href="@{/}">Home</a>
-            <a class=" nav-link font-weight-bold" th:href="@{/blog/new}" sec:authorize="isAuthenticated()">New Post</a>
-            <a class=" nav-link font-weight-bold" th:href="@{/blog/deleted}" sec:authorize="hasRole('ROLE_ADMIN')">Deleted Posts</a>
-            <a class=" nav-link font-weight-bold" th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>
-            <a class=" nav-link font-weight-bold" th:href="@{/register}" sec:authorize="!isAuthenticated()">Register</a>
-            <a class=" nav-link font-weight-bold" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
-            <p class=" nav-link offset-sm-6" sec:authorize="isAuthenticated()">You're logged in as <b sec:authentication="name">NOME UTENTE</b> </p>
+                <a class="nav-link font-weight-bold" th:href="@{/}">Home</a>
+                <a class="nav-link font-weight-bold" th:href="@{/blog/new}" sec:authorize="isAuthenticated()">New Post</a>
+                <a class="nav-link font-weight-bold" th:href="@{/blog/deleted}" sec:authorize="hasRole('ROLE_ADMIN')">Deleted Posts</a>
+                <a class="nav-link font-weight-bold" th:href="@{/login}" sec:authorize="!isAuthenticated()">Login</a>
+                <a class="nav-link font-weight-bold" th:href="@{/register}" sec:authorize="!isAuthenticated()">Register</a>
+                <a class="nav-link font-weight-bold" th:href="@{/logout}" sec:authorize="isAuthenticated()">Logout</a>
+                <p class="nav-link offset-sm-6" sec:authorize="isAuthenticated()">You're logged in as <b sec:authentication="name">NOME UTENTE</b></p>
         </nav>
 
         <!-- FOOTER -->

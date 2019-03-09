@@ -5,6 +5,7 @@ import ch.supsi.webapp.web.Entities.*;
 import ch.supsi.webapp.web.Repositories.CommentToCommentRepository;
 import ch.supsi.webapp.web.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;

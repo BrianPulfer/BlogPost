@@ -16,6 +16,10 @@
 
             <div th:insert="~{master-page :: BP-navbar}"></div>
 
+            <div class="row">
+                <input class="offset-10 col col-md-2" id="searchText" type="text">
+            </div>
+
             <main>
                 <article th:each="bp : ${blogPosts}" class="card mb-4 row">
                     <div class="col card-body">
@@ -29,5 +33,10 @@
 
             <div th:insert="~{master-page :: BP-footer}"></div>
         </div>
+
+
+        <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script th:src="@{/js/indexSearch.js}"></script>
+
     </body>
 </html>

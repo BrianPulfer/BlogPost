@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,18 @@ public class BlogPostController {
     @RequestMapping(value = "/blogposts", method = RequestMethod.GET)
     public List<BlogPost> getBlogPost() {
         return blogPostService.getBlogPosts();
+    }
+
+    @RequestMapping(value = "/blogposts/search", method = RequestMethod.GET)
+    public List<BlogPost> searchBlogPost(@RequestParam(name = "q") String query){
+        List<BlogPost> matches = new ArrayList<>();
+
+        for(BlogPost bp : blogPostService.getBlogPosts()){
+            if(bp.getText().toLowerCase().contains(query.toLowerCase()) || bp.getTitle().toLowerCase().contains(query.toLowerCase()))
+                matches.add(bp);
+        }
+
+        return matches;
     }
 
     @RequestMapping(value = "/blogposts", method = RequestMethod.POST)
