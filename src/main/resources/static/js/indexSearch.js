@@ -48,12 +48,11 @@ searchPost = function(){
         return;
 
     $.ajax({
-        url:"http://localhost:9090/blogposts/search?q="+$("#searchText").val(), //Sul deploy la porta è 9090.
+        url:"blogposts/search?q="+$("#searchText").val(),
         type:"GET",
         dataType:"json"
     })
         .done(function(data) {
-            console.log(data);
              $('article').remove();
              $('main').after(writePosts(data));
         })

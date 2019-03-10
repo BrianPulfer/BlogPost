@@ -114,7 +114,7 @@ public class PagesController {
         bp.setDate(new Date());
         bp.setAuthor(getCurrentUser()); //Modificare per lasciare autore originale
         blogPostService.addBlogPost(bp);
-        return getAllBlogPosts(model);
+        return "redirect:/";
     }
 
 
